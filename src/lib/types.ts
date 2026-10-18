@@ -88,6 +88,7 @@ export interface SiteSettings {
   radio_stream_url?: string;
   radio_azuracast_url?: string;
   radio_website_url?: string;
+  live_stream_url?: string;
   live_stream_active?: string;
   google_maps_embed_url?: string;
   // Sección Nosotros

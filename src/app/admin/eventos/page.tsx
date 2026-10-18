@@ -1,8 +1,25 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { ChurchEvent } from '@/lib/types';
-import { Plus, Edit2, Trash2, Calendar, Clock, MapPin, Loader2, X, Check, Upload } from 'lucide-react';
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Calendar,
+  Clock,
+  MapPin,
+  Loader2,
+  X,
+  Check,
+  Upload,
+  Archive,
+  ArchiveRestore,
+  CheckCircle2,
+  Search,
+  Sparkles,
+  Layers,
+} from 'lucide-react';
 import ConfirmModal from '@/components/ConfirmModal';
 
 export default function AdminEventosPage() {
@@ -11,6 +28,11 @@ export default function AdminEventosPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ChurchEvent | null>(null);
   const [saving, setSaving] = useState(false);
+
+  // Status and search filter states
+  const [activeTab, setActiveTab] = useState<'all' | 'published' | 'draft' | 'archived'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusChangingId, setStatusChangingId] = useState<number | null>(null);
 
   // Custom Delete Modal states
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
@@ -62,6 +84,67 @@ export default function AdminEventosPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [modalOpen, saving]);
 
+  // Contadores por estado
+  const counts = useMemo(() => {
+    return {
+      all: events.length,
+      published: events.filter((e) => e.status === 'published').length,
+      draft: events.filter((e) => e.status === 'draft').length,
+      archived: events.filter((e) => e.status === 'archived').length,
+    };
+  }, [events]);
+
+  // Eventos filtrados por pestaña y búsqueda
+  const filteredEvents = useMemo(() => {
+    return events.filter((e) => {
+      if (activeTab !== 'all' && e.status !== activeTab) {
+        return false;
+      }
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchTitle = (e.title || '').toLowerCase().includes(q);
+        const matchLocation = (e.location || '').toLowerCase().includes(q);
+        const matchDesc = (e.description || '').toLowerCase().includes(q);
+        if (!matchTitle && !matchLocation && !matchDesc) return false;
+      }
+      return true;
+    });
+  }, [events, activeTab, searchQuery]);
+
+  const handleQuickStatusChange = async (
+    event: ChurchEvent,
+    newStatus: 'published' | 'draft' | 'archived'
+  ) => {
+    try {
+      setStatusChangingId(event.id);
+      const payload = {
+        title: event.title,
+        date: event.date,
+        time: event.time,
+        location: event.location,
+        description: event.description,
+        image_url: event.image_url,
+        registration_url: event.registration_url,
+        status: newStatus,
+        is_featured: event.is_featured === 1,
+      };
+
+      const res = await fetch(`/api/events/${event.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        await loadEvents();
+      }
+    } catch (err) {
+      console.error('Error changing status:', err);
+    } finally {
+      setStatusChangingId(null);
+    }
+  };
+
   const handleDateChange = (newDate: string) => {
     setDate(newDate);
     const today = getTodayHonduras();
@@ -78,7 +161,7 @@ export default function AdminEventosPage() {
     setLocation('Santuario Principal MICAPA');
     setDescription('');
     setImageUrl('');
-    setStatus('published');
+    setStatus(activeTab === 'draft' ? 'draft' : 'published');
     setIsFeatured(false);
     setModalOpen(true);
   };
@@ -127,7 +210,7 @@ export default function AdminEventosPage() {
 
     try {
       const today = getTodayHonduras();
-      const effectiveStatus = (date < today && status === 'published') ? 'archived' : status;
+      const effectiveStatus = date < today && status === 'published' ? 'archived' : status;
 
       const payload = {
         title,
@@ -179,6 +262,7 @@ export default function AdminEventosPage() {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-200">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Eventos y Convocatorias</h1>
@@ -196,67 +280,304 @@ export default function AdminEventosPage() {
         </button>
       </div>
 
+      {/* Submenú de Estados y Filtro de Búsqueda */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-2.5 sm:p-3 rounded-2xl border border-gray-200 shadow-xs">
+        {/* Pestañas de estado */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'all'
+                ? 'bg-brand-blue text-white shadow-soft'
+                : 'bg-white border border-gray-200 text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span>Todos</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                activeTab === 'all' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
+              }`}
+            >
+              {counts.all}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('published')}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'published'
+                ? 'bg-emerald-700 text-white shadow-soft'
+                : 'bg-white border border-gray-200 text-slate-600 hover:bg-emerald-50 hover:text-emerald-800'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Publicados</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                activeTab === 'published' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800'
+              }`}
+            >
+              {counts.published}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('draft')}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'draft'
+                ? 'bg-amber-700 text-white shadow-soft'
+                : 'bg-white border border-gray-200 text-slate-600 hover:bg-amber-50 hover:text-amber-900'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span>Borradores</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                activeTab === 'draft' ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-900'
+              }`}
+            >
+              {counts.draft}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('archived')}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              activeTab === 'archived'
+                ? 'bg-slate-800 text-white shadow-soft'
+                : 'bg-white border border-gray-200 text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+            }`}
+          >
+            <Archive className="w-3.5 h-3.5" />
+            <span>Archivados</span>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                activeTab === 'archived' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
+              }`}
+            >
+              {counts.archived}
+            </span>
+          </button>
+        </div>
+
+        {/* Buscador */}
+        <div className="relative w-full md:w-64 shrink-0">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Buscar por título o lugar..."
+            className="w-full pl-9 pr-8 py-2 rounded-xl border border-gray-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-gold bg-slate-50/50"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Tarjetas de Eventos */}
       {loading ? (
         <div className="p-12 text-center">
           <Loader2 className="w-8 h-8 text-brand-gold animate-spin mx-auto" />
         </div>
+      ) : filteredEvents.length === 0 ? (
+        <div className="bg-white rounded-3xl p-10 sm:p-14 text-center border border-gray-200 shadow-sm max-w-lg mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+            {activeTab === 'archived' ? (
+              <Archive className="w-6 h-6" />
+            ) : activeTab === 'draft' ? (
+              <Calendar className="w-6 h-6" />
+            ) : (
+              <Layers className="w-6 h-6" />
+            )}
+          </div>
+          <h3 className="text-base font-bold text-slate-800">
+            {searchQuery
+              ? 'No se encontraron eventos'
+              : activeTab === 'archived'
+              ? 'No hay eventos archivados'
+              : activeTab === 'draft'
+              ? 'No tienes borradores guardados'
+              : activeTab === 'published'
+              ? 'No hay eventos publicados'
+              : 'No hay eventos registrados'}
+          </h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+            {searchQuery
+              ? `No encontramos coincidencias para "${searchQuery}". Intenta con otro término.`
+              : activeTab === 'archived'
+              ? 'Los eventos cuya fecha de realización pase se archivarán aquí automáticamente, o puedes archivar manualmente los que concluyan.'
+              : activeTab === 'draft'
+              ? 'Usa borradores para redactar y afinar detalles antes de publicar el evento ante la congregación.'
+              : activeTab === 'published'
+              ? 'No hay eventos visibles en la cartelera pública. Haz clic en "+ Publicar Evento" para agendar el próximo.'
+              : 'Empieza agendando conferencias, cultos especiales o congresos.'}
+          </p>
+          {searchQuery ? (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors mt-2"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>Limpiar búsqueda</span>
+            </button>
+          ) : (
+            <button
+              onClick={openCreateModal}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-gold hover:bg-brand-gold-hover text-white text-xs font-bold transition-all shadow-xs mt-2"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Crear Evento</span>
+            </button>
+          )}
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3 gap-2">
-                  {event.status === 'published' && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold tracking-wide">
-                      ● Publicado
+          {filteredEvents.map((event) => {
+            const isArchived = event.status === 'archived';
+            const isDraft = event.status === 'draft';
+            const isPublished = event.status === 'published';
+            const isChanging = statusChangingId === event.id;
+
+            return (
+              <div
+                key={event.id}
+                className={`rounded-3xl p-6 border transition-all flex flex-col justify-between ${
+                  isArchived
+                    ? 'bg-slate-50/80 border-slate-200 text-slate-600'
+                    : isDraft
+                    ? 'bg-amber-50/20 border-amber-200/80 shadow-xs'
+                    : 'bg-white border-gray-200 shadow-sm hover:shadow-card hover:border-emerald-200'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+                    <div className="flex items-center gap-1.5">
+                      {isPublished && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold tracking-wide flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          Publicado
+                        </span>
+                      )}
+                      {isDraft && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold tracking-wide flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                          Borrador
+                        </span>
+                      )}
+                      {isArchived && (
+                        <span className="px-2.5 py-0.5 rounded-full bg-slate-200/70 text-slate-700 border border-slate-300 text-[11px] font-bold tracking-wide flex items-center gap-1.5">
+                          <Archive className="w-3 h-3 text-slate-500" />
+                          Archivado
+                        </span>
+                      )}
+                      {event.is_featured === 1 && (
+                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">
+                          ★ Destacado
+                        </span>
+                      )}
+                    </div>
+
+                    <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full shrink-0">
+                      {event.date} • {event.time}
                     </span>
-                  )}
-                  {event.status === 'draft' && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold tracking-wide">
-                      ● Borrador
-                    </span>
-                  )}
-                  {event.status === 'archived' && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[11px] font-bold tracking-wide">
-                      ✓ Finalizado / Archivado
-                    </span>
-                  )}
-                  <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full shrink-0">
-                    {event.date} • {event.time}
-                  </span>
+                  </div>
+
+                  <h3
+                    className={`text-base font-bold mb-2 ${
+                      isArchived ? 'text-slate-700' : 'text-slate-800'
+                    }`}
+                  >
+                    {event.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4">
+                    {event.description}
+                  </p>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-800 mb-2">{event.title}</h3>
-                <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4">
-                  {event.description}
-                </p>
-              </div>
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-1 min-w-0 max-w-[130px] sm:max-w-[150px]">
+                    <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+                    <span className="truncate">{event.location}</span>
+                  </div>
 
-              <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-slate-500">
-                <span className="truncate max-w-[180px]">{event.location}</span>
+                  {/* Acciones Rápidas y de Edición */}
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {/* Botón rápido de cambio de estado */}
+                    {isPublished && (
+                      <button
+                        disabled={isChanging}
+                        onClick={() => handleQuickStatusChange(event, 'archived')}
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-semibold text-slate-600 hover:text-slate-800 hover:bg-slate-100 border border-gray-200 transition-colors"
+                        title="Archivar este evento"
+                      >
+                        {isChanging ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <Archive className="w-3 h-3" />
+                        )}
+                        <span>Archivar</span>
+                      </button>
+                    )}
 
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => openEditModal(event)}
-                    className="p-1.5 text-slate-600 hover:text-brand-blue hover:bg-slate-50 rounded-lg transition-colors"
-                    title="Editar"
-                  >
-                    <Edit2 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setDeleteTargetId(event.id)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                    title="Eliminar"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                    {isDraft && (
+                      <button
+                        disabled={isChanging}
+                        onClick={() => handleQuickStatusChange(event, 'published')}
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-semibold text-emerald-700 hover:bg-emerald-50 border border-emerald-200 transition-colors"
+                        title="Publicar en cartelera"
+                      >
+                        {isChanging ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        )}
+                        <span>Publicar</span>
+                      </button>
+                    )}
+
+                    {isArchived && (
+                      <button
+                        disabled={isChanging}
+                        onClick={() => handleQuickStatusChange(event, 'published')}
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-semibold text-brand-blue hover:bg-blue-50 border border-blue-200 transition-colors"
+                        title="Reactivar a Publicado"
+                      >
+                        {isChanging ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <ArchiveRestore className="w-3 h-3" />
+                        )}
+                        <span>Reactivar</span>
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => openEditModal(event)}
+                      className="p-1.5 text-slate-600 hover:text-brand-blue hover:bg-slate-50 rounded-lg transition-colors"
+                      title="Editar evento"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => setDeleteTargetId(event.id)}
+                      className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      title="Eliminar evento"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
