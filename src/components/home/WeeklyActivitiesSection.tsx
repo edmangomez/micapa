@@ -88,7 +88,7 @@ export default function WeeklyActivitiesSection({ activities }: { activities: We
                 <div
                   key={activity.id}
                   className={`bg-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-card group taste-enter ${
-                    isSaturday ? 'border-2 border-amber-400' : 'border border-transparent'
+                    isSaturday ? 'border-2 border-amber-400' : 'border-2 border-stone-200/90 hover:border-slate-300'
                   }`} /* taste-skill-ignore */
                 >
                   <div>

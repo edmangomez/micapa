@@ -16,6 +16,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.facebook_url || 'https://www.facebook.com/micapacomayagua',
       icon: FacebookIcon,
       color: 'bg-[#1877F2]',
+      borderColor: 'border-2 border-blue-200/80 hover:border-[#1877F2]/60',
       action: 'Seguir en Facebook',
       buttonRest: 'bg-blue-50 text-blue-800',
       buttonHover: 'group-hover:bg-[#1877F2] group-hover:text-white',
@@ -32,6 +33,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.instagram_url || 'https://www.instagram.com/micapacomayagua',
       icon: InstagramIcon,
       color: 'bg-[#E1306C]',
+      borderColor: 'border-2 border-pink-200/80 hover:border-[#E1306C]/60',
       action: 'Seguir en Instagram',
       buttonRest: 'bg-pink-50 text-pink-800',
       buttonHover: 'group-hover:bg-[#E1306C] group-hover:text-white',
@@ -48,6 +50,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.youtube_url || 'https://www.youtube.com/@radiomicapa',
       icon: YouTubeIcon,
       color: 'bg-[#FF0000]',
+      borderColor: 'border-2 border-red-200/80 hover:border-[#FF0000]/60',
       action: 'Suscribirse al Canal',
       buttonRest: 'bg-red-50 text-red-800',
       buttonHover: 'group-hover:bg-[#FF0000] group-hover:text-white',
@@ -64,6 +67,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.radio_website_url || 'https://radio.micapa.net',
       icon: Radio,
       color: 'bg-amber-600',
+      borderColor: 'border-2 border-amber-300/80 hover:border-amber-500',
       action: 'Sintonizar Emisora',
       buttonRest: 'bg-amber-50 text-amber-950',
       buttonHover: 'group-hover:bg-amber-600 group-hover:text-white',
@@ -80,6 +84,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.tiktok_url || '',
       icon: TikTokIcon,
       color: 'bg-black',
+      borderColor: 'border-2 border-slate-300 hover:border-black',
       action: 'Ver en TikTok',
       buttonRest: 'bg-slate-100 text-slate-900',
       buttonHover: 'group-hover:bg-black group-hover:text-white',
@@ -96,6 +101,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       href: settings.twitter_url || '',
       icon: TwitterIcon,
       color: 'bg-slate-900',
+      borderColor: 'border-2 border-slate-300 hover:border-slate-800',
       action: 'Seguir en X',
       buttonRest: 'bg-slate-100 text-slate-900',
       buttonHover: 'group-hover:bg-slate-900 group-hover:text-white',
@@ -126,7 +132,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
                 href={ch.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between group transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-card taste-enter" /* taste-skill-ignore */
+                className={`bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between group transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-card taste-enter ${ch.borderColor}`} /* taste-skill-ignore */
               >
                 <div>
                   {/* Fila superior: Icono de marca a la izquierda y Badge temático a la derecha */}
