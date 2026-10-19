@@ -66,55 +66,50 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
   return (
     <section className="py-20 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Columna Izquierda: Narrativa */}
-          <div className="lg:col-span-5 space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark">
-              Canales y Redes Oficiales
-            </h2>
-            <p className="text-base sm:text-lg text-brand-charcoal leading-relaxed">
-              Mantente conectado con las actividades de MICAPA y edifícate cada día a través de nuestras transmisiones en vivo, reflexiones bíblicas y comunicados oficiales.
-            </p>
-            <div className="pt-2">
-              <a
-                href={settings.radio_website_url || 'https://radio.micapa.net'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-dark text-white hover:bg-black font-semibold text-sm transition-colors"
-              >
-                <span>Web Oficial de Radio</span>
-                <ExternalLink className="w-4 h-4 text-brand-gold" />
-              </a>
-            </div>
-          </div>
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark">
+            Canales y Redes Oficiales
+          </h2>
+          <p className="text-brand-charcoal text-base sm:text-lg mt-3 leading-relaxed">
+            Mantente conectado con las actividades de MICAPA y edifícate cada día a través de nuestras plataformas.
+          </p>
+        </div>
 
-          {/* Columna Derecha: Lista Editorial de Canales */}
-          <div className="lg:col-span-7 space-y-3">
-            {channels.map((ch) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {channels.map((ch) => {
+            const Icon = ch.icon;
+            return (
               <a
                 key={ch.name}
                 href={ch.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 sm:p-6 rounded-3xl bg-white hover:bg-white/80 transition-colors flex items-center justify-between gap-4 group taste-enter"
+                className="bg-white rounded-3xl p-7 flex flex-col justify-between group transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-card taste-enter" /* taste-skill-ignore */
               >
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-blue transition-colors">
+                <div>
+                  <div
+                    className={`w-14 h-14 rounded-2xl ${ch.color} text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-lg font-bold text-brand-dark mb-1.5 group-hover:text-brand-blue transition-colors">
                     {ch.name}
                   </h3>
-                  <p className="text-sm text-brand-muted truncate mt-0.5">
+                  <p className="text-base text-brand-muted leading-relaxed mb-6 font-normal">
                     {ch.description}
                   </p>
                 </div>
 
-                <span className="text-sm font-bold text-brand-blue-dark group-hover:underline shrink-0">
-                  {ch.action} →
-                </span>
+                <div className="pt-2 flex items-center justify-between text-sm sm:text-base font-bold text-brand-blue-dark group-hover:underline">
+                  <span>{ch.action}</span>
+                  <ExternalLink className="w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-transform duration-200" />
+                </div>
               </a>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
