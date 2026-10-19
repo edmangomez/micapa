@@ -41,7 +41,7 @@ export default function Header() {
   return (
     <>
       {/* Top Banner informativo institucional */}
-      <div className="bg-brand-dark text-white/90 text-xs py-2 px-4 border-b border-white/10 hidden sm:block">
+      <div className="bg-brand-dark text-white/90 text-xs py-2 px-4 hidden sm:block">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <a
@@ -75,7 +75,7 @@ export default function Header() {
       </div>
 
       {/* Header Principal Sticky */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-brand-border/60 shadow-soft transition-all">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo e Identidad */}
@@ -108,10 +108,10 @@ export default function Header() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-full text-sm transition-colors ${
                       active
-                        ? 'text-brand-blue bg-brand-blue-light font-semibold shadow-sm'
-                        : 'text-brand-charcoal hover:text-brand-blue hover:bg-gray-50'
+                        ? 'text-brand-blue-dark bg-brand-blue-light font-bold'
+                        : 'text-brand-charcoal hover:text-brand-blue hover:bg-gray-50 font-medium'
                     }`}
                   >
                     {link.name}
@@ -124,14 +124,9 @@ export default function Header() {
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={togglePlay}
-                className="relative inline-flex items-center gap-2 bg-gradient-to-r from-brand-gold to-amber-500 hover:from-brand-gold-hover hover:to-amber-600 text-white font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-highlight transition-all active:scale-95"
+                className="relative inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-hover text-brand-dark font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-full transition-colors active:scale-95"
               >
-                <span className="relative flex h-2.5 w-2.5">
-                  {isPlaying && (
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  )}
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-                </span>
+                <span className="w-2 h-2 rounded-full bg-brand-dark shrink-0"></span>
                 {isPlaying ? (
                   <>
                     <Pause className="w-4 h-4 fill-current" />
@@ -150,7 +145,7 @@ export default function Header() {
             <div className="flex items-center gap-2 lg:hidden">
               <button
                 onClick={togglePlay}
-                className="p-2 rounded-full bg-brand-gold text-white"
+                className="p-2 rounded-full bg-brand-gold text-brand-dark font-bold"
                 aria-label={isPlaying ? "Pausar Radio" : "Reproducir Radio en vivo"}
               >
                 {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
@@ -169,7 +164,7 @@ export default function Header() {
 
         {/* Menú Móvil Desplegable */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100 bg-white/98 backdrop-blur-lg px-4 pt-4 pb-6 space-y-2 shadow-xl animate-fadeIn">
+          <div data-ui="dropdown" className="lg:hidden bg-white/98 backdrop-blur-lg px-4 pt-4 pb-6 space-y-2 shadow-xl animate-fadeIn">
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
@@ -188,7 +183,7 @@ export default function Header() {
               );
             })}
 
-            <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+            <div className="pt-4 flex flex-col gap-3">
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}

@@ -12,10 +12,6 @@ export default function RadioPage() {
     <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       {/* Header Radio */}
       <div className="text-center max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-gold-light text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
-          <Radio className="w-3.5 h-3.5 animate-pulse" />
-          <span>Sintoniza en Directo</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
           Radio del Camino en Vivo
         </h1>
@@ -25,10 +21,10 @@ export default function RadioPage() {
       </div>
 
       {/* Reproductor Visual Ampliado */}
-      <div className="max-w-4xl mx-auto bg-gradient-to-br from-brand-blue-dark via-brand-blue to-sky-800 rounded-3xl p-8 sm:p-14 text-white shadow-2xl relative overflow-hidden">
+      <div className="max-w-4xl mx-auto bg-brand-blue-dark border border-brand-blue/30 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Carátula */}
-          <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden bg-black/20 shadow-2xl border-2 border-white/20 flex-shrink-0">
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden bg-black/20 border border-white/20 flex-shrink-0">
             <Image
               src={nowPlaying.artwork || '/images/radio-logo.jpg'}
               alt={nowPlaying.title}
@@ -51,11 +47,11 @@ export default function RadioPage() {
           {/* Información y Controles */}
           <div className="flex-1 text-center md:text-left space-y-4">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-              <span className="flex items-center gap-1.5 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span className="flex items-center gap-1.5 bg-black/30 border border-white/10 px-3 py-1 rounded-full text-xs font-semibold text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                 <span>SEÑAL EN DIRECTO</span>
               </span>
-              <span className="bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-white/90 flex items-center gap-1">
+              <span className="bg-black/30 border border-white/10 px-3 py-1 rounded-full text-xs text-white/90 flex items-center gap-1">
                 <Users className="w-3.5 h-3.5 text-brand-gold" />
                 <span>{nowPlaying.listeners} oyentes</span>
               </span>
@@ -78,7 +74,7 @@ export default function RadioPage() {
               <button
                 onClick={togglePlay}
                 disabled={isLoading}
-                className="w-16 h-16 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-white shadow-highlight flex items-center justify-center transition-all transform active:scale-95"
+                className="w-16 h-16 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-white flex items-center justify-center transition-transform active:scale-95"
                 title={isPlaying ? 'Pausar' : 'Reproducir'}
                 aria-label={isPlaying ? 'Pausar transmisión de radio' : 'Reproducir transmisión de radio'}
               >
@@ -119,7 +115,7 @@ export default function RadioPage() {
       </div>
 
       {/* Puente con radio.micapa.net (Chat y App) */}
-      <div className="max-w-4xl mx-auto bg-brand-cream rounded-3xl p-8 border border-brand-border/60 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+      <div className="max-w-4xl mx-auto bg-brand-cream rounded-3xl p-8 border border-brand-border/80 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-4 text-center sm:text-left">
           <div className="w-12 h-12 rounded-2xl bg-brand-blue-light text-brand-blue flex items-center justify-center flex-shrink-0">
             <MessageSquare className="w-6 h-6" />
@@ -136,7 +132,7 @@ export default function RadioPage() {
           href="https://radio.micapa.net"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-xs sm:text-sm transition-colors shadow-soft flex items-center gap-2 flex-shrink-0"
+          className="px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-xs sm:text-sm transition-colors flex items-center gap-2 flex-shrink-0"
         >
           <span>Abrir radio.micapa.net</span>
           <ExternalLink className="w-4 h-4" />

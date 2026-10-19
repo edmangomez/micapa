@@ -22,9 +22,9 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
   }, []);
 
   return (
-    <footer className="bg-brand-dark text-white pt-16 pb-28 border-t border-brand-charcoal/40">
+    <footer className="bg-brand-dark text-white pt-16 pb-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-12 border-b border-gray-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-12">
           {/* Columna 1: Identidad y Misión */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white tracking-tight">MICAPA</h3>
-                <p className="text-xs text-brand-gold uppercase tracking-wider font-medium">
+                <p className="text-xs text-brand-gold font-medium">
                   Ministerio el Camino de la Palabra
                 </p>
               </div>
@@ -92,10 +92,10 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
 
           {/* Columna 2: Enlaces Rápidos */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-4">
+            <h4 className="text-base font-semibold text-brand-gold mb-4">
               Navegación
             </h4>
-            <ul className="space-y-2.5 text-sm text-gray-400">
+            <ul className="space-y-2.5 text-sm text-gray-300">
               <li>
                 <Link href="/" className="hover:text-white transition-colors">
                   Inicio
@@ -136,35 +136,35 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
 
           {/* Columna 3: Horarios de Servicios */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-4">
-              Horarios de Reuniones
+            <h4 className="text-base font-semibold text-brand-gold mb-4">
+              Horarios de reuniones
             </h4>
             <ul className="space-y-3.5">
               {activities.length > 0 ? (
                 activities.slice(0, 6).map((act) => (
-                  <li key={act.id} className="border-b border-gray-800/80 pb-2.5 last:border-0">
-                    <div className="flex items-center justify-between text-xs gap-2">
+                  <li key={act.id} className="pb-2.5">
+                    <div className="flex items-center justify-between text-sm gap-2">
                       <span className="font-semibold text-white">
                         {act.day_name}
                       </span>
-                      <span className="text-amber-400 font-semibold text-[11px] whitespace-nowrap shrink-0">
+                      <span className="text-amber-400 font-semibold text-xs whitespace-nowrap shrink-0">
                         {act.start_time}
                         {act.end_time ? ` - ${act.end_time}` : ''}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-400 mt-1 leading-snug">
+                    <p className="text-sm text-gray-300 mt-1 leading-snug">
                       {act.title}
                     </p>
                   </li>
                 ))
               ) : (
-                <li className="text-gray-500 text-xs">Cargando horarios oficiales...</li>
+                <li className="text-gray-400 text-sm">Cargando horarios oficiales...</li>
               )}
             </ul>
             <div className="pt-2">
               <Link
                 href="/actividades"
-                className="inline-flex items-center gap-1.5 text-xs text-brand-blue hover:text-white font-semibold transition-colors group"
+                className="inline-flex items-center gap-1.5 text-sm text-brand-blue-light hover:text-white font-semibold transition-colors group"
               >
                 <span>Ver todas las actividades</span>
                 <span className="transition-transform group-hover:translate-x-0.5">→</span>
@@ -174,22 +174,22 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
 
           {/* Columna 4: Contacto Oficial */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-gold mb-4">
-              Contacto y Sede
+            <h4 className="text-base font-semibold text-brand-gold mb-4">
+              Contacto y sede
             </h4>
-            <div className="flex items-start gap-3 text-sm text-gray-400">
+            <div className="flex items-start gap-3 text-sm text-gray-300">
               <MapPin className="w-5 h-5 text-brand-gold flex-shrink-0 mt-0.5" />
               <div>
                 <span className="text-white font-medium block">El Camino de la palabra</span>
-                <span className="text-gray-400 text-xs block mt-0.5">Calle 2 NO, Bo. El INVA, Comayagua, Honduras</span>
-                <span className="text-brand-gold text-[11px] block mt-0.5 font-mono">Plus Code: F957+3XR</span>
+                <span className="text-gray-300 text-sm block mt-0.5">Calle 2 NO, Bo. El INVA, Comayagua, Honduras</span>
+                <span className="text-brand-gold text-sm block mt-0.5 font-medium">Plus Code: F957+3XR</span>
               </div>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-400">
+            <div className="flex items-center gap-3 text-sm text-gray-300">
               <Phone className="w-4 h-4 text-brand-gold flex-shrink-0" />
               <span>+504 2772-0872</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-gray-400">
+            <div className="flex items-center gap-3 text-sm text-gray-300">
               <Mail className="w-4 h-4 text-brand-gold flex-shrink-0" />
               <span>micapacomayagua@gmail.com</span>
             </div>
@@ -198,9 +198,9 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
                 href="https://radio.micapa.net"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-brand-blue hover:bg-brand-blue-hover px-4 py-2 rounded-full transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-brand-blue hover:bg-brand-blue-hover px-4 py-2 rounded-full transition-colors"
               >
-                <Radio className="w-3.5 h-3.5" />
+                <Radio className="w-4 h-4" />
                 <span>Web Oficial de Radio: radio.micapa.net</span>
               </a>
             </div>
@@ -208,10 +208,10 @@ export default function Footer({ initialActivities = [] }: { initialActivities?:
         </div>
 
         {/* Barra Inferior */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-400 gap-4">
           <p>© {new Date().getFullYear()} MICAPA - Ministerio el Camino de la Palabra. Todos los derechos reservados.</p>
           <div className="flex items-center gap-4">
-            <Link href="/admin" className="hover:text-gray-400 transition-colors">
+            <Link href="/admin" className="hover:text-gray-200 transition-colors">
               Panel Administrativo
             </Link>
             <span>•</span>

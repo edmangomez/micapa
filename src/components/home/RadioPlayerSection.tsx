@@ -9,19 +9,15 @@ export default function RadioPlayerSection() {
   const { isPlaying, isLoading, volume, isMuted, nowPlaying, togglePlay, setVolume, toggleMute } = useAudioPlayer();
 
   return (
-    <section className="py-16 bg-gradient-to-b from-brand-cream to-white relative overflow-hidden">
+    <section className="py-16 bg-slate-900 text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-brand-blue-dark via-brand-blue to-sky-700 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-brand-blue-dark rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden taste-enter">
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Lado izquierdo: Información y Badges */}
             <div className="lg:col-span-6 space-y-4 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-brand-gold">
-                <Radio className="w-3.5 h-3.5 animate-pulse" />
-                <span>Emisora Oficial • La Radio del Camino: Conectándote Con El Cielo</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-                Radio del Camino en Vivo
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white flex items-center justify-center lg:justify-start gap-2.5">
+                <Radio className="w-6 h-6 text-brand-gold shrink-0" />
+                <span>Radio del Camino en Vivo</span>
               </h2>
 
               <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-xl">
@@ -30,15 +26,12 @@ export default function RadioPlayerSection() {
 
               {/* Estado de emisión y oyentes */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
+                <div className="flex items-center gap-2 bg-black/30 px-3.5 py-1.5 rounded-full text-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                   <span className="font-semibold text-emerald-300">Señal Online 192 kbps</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-black/20 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs text-white/90">
+                <div className="flex items-center gap-1.5 bg-black/30 px-3.5 py-1.5 rounded-full text-xs text-white/90">
                   <Users className="w-3.5 h-3.5 text-brand-gold" />
                   <span>{nowPlaying.listeners} oyentes sintonizando</span>
                 </div>
@@ -49,7 +42,7 @@ export default function RadioPlayerSection() {
                   href="https://radio.micapa.net"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs transition-colors border border-white/20"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-sm transition-colors"
                 >
                   <span>Abrir experiencia completa en radio.micapa.net</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -59,10 +52,10 @@ export default function RadioPlayerSection() {
 
             {/* Lado derecho: Tarjeta de Reproductor Interactivo */}
             <div className="lg:col-span-6">
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl">
+              <div className="bg-black/25 rounded-3xl p-6 sm:p-8">
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   {/* Carátula */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden bg-black/20 shadow-lg flex-shrink-0 border border-white/20">
+                  <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden bg-black/40 flex-shrink-0">
                     <Image
                       src={nowPlaying.artwork || '/images/radio-logo.jpg'}
                       alt={nowPlaying.title}
@@ -73,10 +66,10 @@ export default function RadioPlayerSection() {
                     {isPlaying && (
                       <div className="absolute inset-0 bg-brand-gold/15 flex items-center justify-center">
                         <div className="flex items-end gap-1 h-6">
-                          <span className="w-1 bg-white rounded-full animate-[bounce_1s_infinite_100ms] h-4"></span>
-                          <span className="w-1 bg-white rounded-full animate-[bounce_1s_infinite_300ms] h-6"></span>
-                          <span className="w-1 bg-white rounded-full animate-[bounce_1s_infinite_200ms] h-3"></span>
-                          <span className="w-1 bg-white rounded-full animate-[bounce_1s_infinite_400ms] h-5"></span>
+                          <span className="w-1 bg-white rounded-full h-4"></span>
+                          <span className="w-1 bg-white rounded-full h-6"></span>
+                          <span className="w-1 bg-white rounded-full h-3"></span>
+                          <span className="w-1 bg-white rounded-full h-5"></span>
                         </div>
                       </div>
                     )}
@@ -86,7 +79,7 @@ export default function RadioPlayerSection() {
                   <div className="flex-1 text-center sm:text-left min-w-0">
                     <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
                       <Music className="w-3.5 h-3.5 text-brand-gold" />
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-brand-gold">
+                      <span className="text-xs font-semibold text-amber-300">
                         {isPlaying ? 'Sonando Ahora' : 'Radio del Camino'}
                       </span>
                     </div>
@@ -105,7 +98,7 @@ export default function RadioPlayerSection() {
                       <button
                         onClick={togglePlay}
                         disabled={isLoading}
-                        className="w-14 h-14 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-white shadow-highlight flex items-center justify-center transition-all transform active:scale-95"
+                        className="w-14 h-14 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-brand-dark flex items-center justify-center transition-transform active:scale-95"
                         title={isPlaying ? 'Pausar' : 'Reproducir'}
                         aria-label={isPlaying ? 'Pausar transmisión de radio' : 'Reproducir transmisión de radio'}
                       >

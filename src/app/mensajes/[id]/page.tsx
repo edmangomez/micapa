@@ -38,9 +38,9 @@ export default async function DetalleMensajePage({
         <span>Volver a todas las reflexiones</span>
       </Link>
 
-      <article className="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border/60 shadow-card space-y-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-100">
-          <span className="px-3.5 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-bold uppercase tracking-wider">
+      <article className="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border/80 space-y-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-4">
+          <span className="px-3 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-semibold">
             {thought.category}
           </span>
           <div className="flex items-center gap-2 text-xs text-brand-muted">
@@ -81,8 +81,8 @@ export default async function DetalleMensajePage({
         </div>
 
         {/* Compartir reflexión */}
-        <div className="pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <span className="text-xs font-bold text-brand-muted uppercase tracking-wider flex items-center gap-1.5">
+        <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <span className="text-xs font-semibold text-brand-muted flex items-center gap-1.5">
             <Share2 className="w-4 h-4 text-brand-gold" />
             <span>Compartir esta reflexión:</span>
           </span>

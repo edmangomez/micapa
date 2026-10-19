@@ -19,6 +19,8 @@ import {
   Search,
   Sparkles,
   Layers,
+  Star,
+  AlertTriangle,
 } from 'lucide-react';
 import ConfirmModal from '@/components/ConfirmModal';
 
@@ -479,8 +481,9 @@ export default function AdminEventosPage() {
                         </span>
                       )}
                       {event.is_featured === 1 && (
-                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold">
-                          ★ Destacado
+                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold flex items-center gap-1">
+                          <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
+                          <span>Destacado</span>
                         </span>
                       )}
                     </div>
@@ -621,8 +624,9 @@ export default function AdminEventosPage() {
                     className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
                   />
                   {date && date < getTodayHonduras() && (
-                    <p className="text-[11px] text-amber-700 mt-1 font-medium">
-                      ⚠️ Esta fecha ya pasó.
+                    <p className="text-[11px] text-amber-700 mt-1 font-medium flex items-center gap-1">
+                      <AlertTriangle className="w-3 h-3 text-amber-600 shrink-0" />
+                      <span>Esta fecha ya pasó.</span>
                     </p>
                   )}
                 </div>
@@ -675,7 +679,12 @@ export default function AdminEventosPage() {
                     className="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-gold-light file:text-brand-gold-hover hover:file:bg-amber-100 cursor-pointer"
                   />
                   {uploading && <Loader2 className="w-4 h-4 animate-spin text-brand-gold" />}
-                  {imageUrl && <span className="text-xs text-emerald-600 font-bold">✓ Cargada</span>}
+                  {imageUrl && (
+                    <span className="text-xs text-emerald-600 font-bold flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Cargada</span>
+                    </span>
+                  )}
                 </div>
               </div>
 

@@ -32,6 +32,9 @@ export default {
       fontFamily: {
         sans: ["var(--font-poppins)", "Poppins", "system-ui", "sans-serif"],
       },
+      fontSize: {
+        xs: ['0.8125rem', { lineHeight: '1.25rem' }],
+      },
       boxShadow: {
         soft: "0 4px 20px -2px rgba(2, 136, 209, 0.08)",
         card: "0 10px 30px -5px rgba(0, 0, 0, 0.05)",

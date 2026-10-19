@@ -63,7 +63,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
         href={`https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95"
+        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold transition-colors active:scale-95"
         title="Compartir en WhatsApp"
       >
         <MessageCircle className="w-4 h-4 fill-current" />
@@ -75,7 +75,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95"
+        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-semibold transition-colors active:scale-95"
         title="Compartir en Facebook"
       >
         <FacebookIcon className="w-4 h-4" />
@@ -87,7 +87,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
         href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-black hover:bg-zinc-800 text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95"
+        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-black hover:bg-zinc-800 text-white text-xs font-semibold transition-colors active:scale-95"
         title="Compartir en X (Twitter)"
       >
         <TwitterIcon className="w-3.5 h-3.5" />
@@ -99,7 +99,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
         href={`https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#229ED9] hover:bg-[#1D8BC0] text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95"
+        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#229ED9] hover:bg-[#1D8BC0] text-white text-xs font-semibold transition-colors active:scale-95"
         title="Compartir en Telegram"
       >
         <TelegramIcon className="w-4 h-4" />
@@ -110,7 +110,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
       <button
         onClick={handleCopy}
         type="button"
-        className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all border shadow-sm ${
+        className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-colors border ${
           copied
             ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
             : 'bg-white hover:bg-slate-50 text-slate-700 border-gray-200'
@@ -135,7 +135,7 @@ export default function ShareButtons({ title, url, summary }: ShareButtonsProps)
         <button
           onClick={handleNativeShare}
           type="button"
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold transition-colors"
           title="Más opciones (Instagram, Mensajes, etc.)"
         >
           <Share2 className="w-3.5 h-3.5" />

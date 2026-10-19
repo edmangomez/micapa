@@ -16,10 +16,7 @@ export default function ActividadesPage() {
   return (
     <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="px-3.5 py-1 rounded-full bg-brand-green-light text-brand-green text-xs font-bold uppercase tracking-wider">
-          Agenda Congregacional
-        </span>
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark mt-2">
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
           Nuestras Actividades Semanales
         </h1>
         <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
@@ -32,11 +29,11 @@ export default function ActividadesPage() {
           {activities.map((activity) => (
             <div
               key={activity.id}
-              className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-border/60 shadow-sm hover:shadow-card transition-all flex flex-col justify-between"
+              className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-border/80 transition-colors flex flex-col justify-between"
             >
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                  <span className="px-3.5 py-1 rounded-full bg-brand-green-light text-brand-green-dark text-xs font-bold uppercase tracking-wider shrink-0">
+                  <span className="px-3 py-1 rounded-full bg-brand-green-light text-brand-green-dark text-xs font-semibold shrink-0">
                     {activity.day_name}
                   </span>
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-brand-charcoal bg-brand-cream px-3 py-1 rounded-full border border-brand-border/40 shrink-0">
@@ -57,7 +54,7 @@ export default function ActividadesPage() {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-brand-charcoal gap-2">
+              <div className="pt-4 flex items-center justify-between text-xs text-brand-charcoal gap-2">
                 <span className="flex items-center gap-1.5 min-w-0 flex-1">
                   <MapPin className="w-4 h-4 text-brand-blue flex-shrink-0" />
                   <span className="truncate">{activity.location}</span>
@@ -68,7 +65,7 @@ export default function ActividadesPage() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-3xl p-12 text-center border border-brand-border/60 shadow-sm max-w-xl mx-auto space-y-3">
+        <div className="bg-white rounded-3xl p-12 text-center border border-brand-border/80 max-w-xl mx-auto space-y-3">
           <Calendar className="w-12 h-12 text-brand-muted mx-auto" />
           <h2 className="text-xl font-bold text-brand-dark">No hay actividades programadas</h2>
           <p className="text-sm text-brand-muted">
@@ -93,7 +90,7 @@ export default function ActividadesPage() {
         <div className="pt-2">
           <Link
             href="/contacto"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-xs sm:text-sm shadow-soft transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-xs sm:text-sm transition-colors"
           >
             <span>Ver Dirección y Contacto</span>
             <ArrowRight className="w-4 h-4" />

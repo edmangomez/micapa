@@ -40,3 +40,7 @@ yarn-error.log*
 # Binary executables
 cloudflared.exe
 *.exe
+
+# Taste-skill inspection output
+.taste-skill/
+

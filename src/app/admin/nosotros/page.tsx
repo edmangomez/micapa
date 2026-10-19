@@ -207,7 +207,7 @@ export default function AdminNosotrosPage() {
         <div>
           <div className="flex items-center gap-2 text-brand-blue mb-1">
             <Compass className="w-5 h-5 text-brand-gold" />
-            <span className="text-xs font-bold uppercase tracking-wider">Identidad Institucional</span>
+            <span className="text-xs font-semibold text-brand-blue">Identidad Institucional</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Administración de "Nosotros / Quiénes Somos"
@@ -295,7 +295,7 @@ export default function AdminNosotrosPage() {
               : 'border-transparent text-slate-500 hover:text-slate-900'
           }`}
         >
-          <Compass className="w-4 h-4 text-purple-600" />
+          <Compass className="w-4 h-4 text-brand-blue" />
           <span>Cabecera e Identidad</span>
         </button>
 
@@ -329,7 +329,7 @@ export default function AdminNosotrosPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Título de la Misión
                 </label>
                 <input
@@ -341,7 +341,7 @@ export default function AdminNosotrosPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Declaración de Misión
                 </label>
                 <textarea
@@ -370,7 +370,7 @@ export default function AdminNosotrosPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Título de la Visión
                 </label>
                 <input
@@ -382,7 +382,7 @@ export default function AdminNosotrosPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Declaración de Visión
                 </label>
                 <textarea
@@ -402,7 +402,7 @@ export default function AdminNosotrosPage() {
           {/* Vista previa en tiempo real */}
           <div className="bg-slate-100 rounded-3xl p-6 sm:p-8 border border-slate-200 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-brand-blue" />
                 <span>Previsualización en la Web Pública</span>
               </span>
@@ -442,7 +442,7 @@ export default function AdminNosotrosPage() {
             <h3 className="text-base font-bold text-slate-900">Encabezado de la Sección de Valores</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Título de la Sección
                 </label>
                 <input
@@ -454,7 +454,7 @@ export default function AdminNosotrosPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                   Subtítulo Explicativo
                 </label>
                 <input
@@ -513,7 +513,7 @@ export default function AdminNosotrosPage() {
                             <IconComp className="w-5 h-5" />
                           </div>
                           <div>
-                            <span className="text-[11px] font-bold text-brand-muted uppercase tracking-wider block">
+                            <span className="text-xs font-semibold text-brand-blue block">
                               Valor #{idx + 1}
                             </span>
                             <h4 className="text-sm font-bold text-slate-900">{v.title}</h4>
@@ -616,7 +616,7 @@ export default function AdminNosotrosPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Insignia Superior (Badge)
               </label>
               <input
@@ -629,7 +629,7 @@ export default function AdminNosotrosPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Título Principal
               </label>
               <input
@@ -642,7 +642,7 @@ export default function AdminNosotrosPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Subtítulo o Resumen Inspirador
               </label>
               <textarea
@@ -655,7 +655,7 @@ export default function AdminNosotrosPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 URL de Imagen de Fondo
               </label>
               <input
@@ -685,7 +685,7 @@ export default function AdminNosotrosPage() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Título del Bloque
               </label>
               <input
@@ -698,7 +698,7 @@ export default function AdminNosotrosPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Mensaje de Invitación
               </label>
               <textarea

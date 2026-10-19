@@ -16,10 +16,7 @@ export default function EventosPage() {
   return (
     <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="px-3.5 py-1 rounded-full bg-brand-gold-light text-amber-800 text-xs font-bold uppercase tracking-wider">
-          Calendario Especial
-        </span>
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark mt-2">
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
           Eventos y Convocatorias
         </h1>
         <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
@@ -53,7 +50,7 @@ export default function EventosPage() {
           return (
             <div
               key={event.id}
-              className="bg-white rounded-3xl overflow-hidden border border-brand-border/60 shadow-sm hover:shadow-card transition-all flex flex-col justify-between"
+              className="bg-white rounded-3xl overflow-hidden border border-brand-border/80 transition-colors flex flex-col justify-between"
             >
               <div className="p-6 sm:p-8">
                 <div className="flex items-start gap-4 mb-4">
@@ -81,7 +78,7 @@ export default function EventosPage() {
                 </p>
               </div>
 
-              <div className="px-6 py-4 bg-brand-cream border-t border-brand-border/40 flex items-center justify-between text-xs gap-3">
+              <div className="px-6 py-4 bg-brand-cream flex items-center justify-between text-xs gap-3">
                 <span className="flex items-center gap-1.5 text-brand-charcoal min-w-0 flex-1">
                   <MapPin className="w-3.5 h-3.5 text-brand-blue flex-shrink-0" />
                   <span className="truncate">{event.location}</span>

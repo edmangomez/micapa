@@ -62,7 +62,7 @@ export default function PensamientosCatalog({
   return (
     <div className="space-y-8">
       {/* Controles de Búsqueda y Categorías */}
-      <div className="bg-white rounded-3xl p-6 border border-brand-border/60 shadow-sm space-y-5">
+      <div className="bg-white rounded-3xl p-6 border border-brand-border/80 space-y-5">
         {/* Barra de Búsqueda */}
         <div className="relative max-w-xl mx-auto">
           <Search className="w-5 h-5 text-brand-muted absolute left-4 top-1/2 -translate-y-1/2" />
@@ -87,7 +87,7 @@ export default function PensamientosCatalog({
         </div>
 
         {/* Píldoras de Categorías */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-100">
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -95,9 +95,9 @@ export default function PensamientosCatalog({
                 setSelectedCategory(cat);
                 setCurrentPage(1);
               }}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-colors ${
                 selectedCategory.toLowerCase() === cat.toLowerCase()
-                  ? 'bg-brand-blue text-white shadow-soft scale-105'
+                  ? 'bg-brand-blue text-white'
                   : 'bg-brand-cream text-brand-charcoal hover:bg-gray-100'
               }`}
             >
@@ -141,11 +141,11 @@ export default function PensamientosCatalog({
             {paginated.map((thought) => (
               <article
                 key={thought.id}
-                className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-border/60 hover:border-brand-blue/40 shadow-sm hover:shadow-card transition-all hover:-translate-y-1 flex flex-col justify-between"
+                className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-border/80 transition-colors flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-bold uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-semibold">
                       {thought.category}
                     </span>
                     <span className="text-xs text-brand-muted flex items-center gap-1">
@@ -172,7 +172,7 @@ export default function PensamientosCatalog({
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
+                <div className="pt-4 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0 flex-1">
                     <div className="relative w-7 h-7 rounded-full overflow-hidden bg-brand-blue-light text-brand-blue flex items-center justify-center font-bold text-xs flex-shrink-0 border border-brand-blue/20">
                       <Image
@@ -202,7 +202,7 @@ export default function PensamientosCatalog({
 
           {/* Paginación */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between bg-white rounded-3xl p-5 border border-brand-border/60 shadow-sm">
+            <div className="flex items-center justify-between bg-white rounded-3xl p-5 border border-brand-border/80">
               <span className="text-xs text-brand-muted font-medium">
                 Página <strong className="text-brand-dark">{currentPage}</strong> de{' '}
                 <strong className="text-brand-dark">{totalPages}</strong>

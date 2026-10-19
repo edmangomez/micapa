@@ -19,7 +19,7 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
       description: '@micapacomayagua • Devocionales y fotos',
       href: settings.instagram_url || 'https://www.instagram.com/micapacomayagua',
       icon: InstagramIcon,
-      color: 'bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600',
+      color: 'bg-[#E1306C]',
       action: 'Seguir en Instagram',
       show: true,
     },
@@ -64,52 +64,55 @@ export default function OfficialChannelsSection({ settings }: { settings: SiteSe
   const channels = baseChannels.filter((ch) => ch.show);
 
   return (
-    <section className="py-20 bg-brand-cream border-t border-brand-border/40">
+    <section className="py-20 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="px-3 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-semibold uppercase tracking-wider">
-            Comunidad Digital
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark mt-2">
-            Canales y Redes Oficiales
-          </h2>
-          <p className="text-brand-muted text-sm sm:text-base mt-2">
-            Mantente conectado con las actividades de MICAPA y edifícate cada día a través de nuestras plataformas.
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* Columna Izquierda: Narrativa */}
+          <div className="lg:col-span-5 space-y-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark">
+              Canales y Redes Oficiales
+            </h2>
+            <p className="text-base sm:text-lg text-brand-charcoal leading-relaxed">
+              Mantente conectado con las actividades de MICAPA y edifícate cada día a través de nuestras transmisiones en vivo, reflexiones bíblicas y comunicados oficiales.
+            </p>
+            <div className="pt-2">
+              <a
+                href={settings.radio_website_url || 'https://radio.micapa.net'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-dark text-white hover:bg-black font-semibold text-sm transition-colors"
+              >
+                <span>Web Oficial de Radio</span>
+                <ExternalLink className="w-4 h-4 text-brand-gold" />
+              </a>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {channels.map((ch) => {
-            const Icon = ch.icon;
-            return (
+          {/* Columna Derecha: Lista Editorial de Canales */}
+          <div className="lg:col-span-7 space-y-3">
+            {channels.map((ch) => (
               <a
                 key={ch.name}
                 href={ch.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white rounded-3xl p-6 border border-brand-border/60 hover:border-brand-blue/40 shadow-sm hover:shadow-card transition-all hover:-translate-y-1 flex flex-col justify-between group"
+                className="p-5 sm:p-6 rounded-3xl bg-white hover:bg-white/80 transition-colors flex items-center justify-between gap-4 group taste-enter"
               >
-                <div>
-                  <div
-                    className={`w-12 h-12 rounded-2xl ${ch.color} text-white flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform`}
-                  >
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-base font-bold text-brand-dark mb-1 group-hover:text-brand-blue transition-colors">
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-base sm:text-lg font-bold text-brand-dark group-hover:text-brand-blue transition-colors">
                     {ch.name}
                   </h3>
-                  <p className="text-xs text-brand-muted leading-relaxed mb-4">
+                  <p className="text-sm text-brand-muted truncate mt-0.5">
                     {ch.description}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-blue">
-                  <span>{ch.action}</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
-                </div>
+                <span className="text-sm font-bold text-brand-blue-dark group-hover:underline shrink-0">
+                  {ch.action} →
+                </span>
               </a>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

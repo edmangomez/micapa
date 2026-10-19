@@ -118,10 +118,7 @@ export default function NosotrosPage() {
           />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="px-3 py-1 rounded-full bg-brand-gold-light text-amber-800 text-xs font-bold uppercase tracking-wider">
-            {heroBadge}
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mt-4">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
             {heroTitle}
           </h1>
           <p className="text-gray-300 text-base sm:text-lg max-w-xl mx-auto mt-4 leading-relaxed">
@@ -133,7 +130,7 @@ export default function NosotrosPage() {
       {/* Misión y Visión */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border/60 shadow-card">
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border/80">
             <div className="w-12 h-12 rounded-2xl bg-brand-blue-light text-brand-blue flex items-center justify-center mb-6">
               <Compass className="w-6 h-6" />
             </div>
@@ -143,7 +140,7 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border/60 shadow-card">
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-brand-border/80">
             <div className="w-12 h-12 rounded-2xl bg-brand-gold-light text-brand-gold-hover flex items-center justify-center mb-6">
               <Shield className="w-6 h-6" />
             </div>
@@ -170,10 +167,10 @@ export default function NosotrosPage() {
             return (
               <div
                 key={v.id || idx}
-                className="bg-brand-cream rounded-3xl p-6 border border-brand-border/60 shadow-sm flex flex-col justify-between"
+                className="bg-brand-cream rounded-3xl p-6 border border-brand-border/80 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-white text-brand-blue flex items-center justify-center mb-4 shadow-sm shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-white text-brand-blue flex items-center justify-center mb-4 border border-brand-border/40 shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-bold text-brand-dark mb-2">{v.title}</h3>
@@ -189,7 +186,7 @@ export default function NosotrosPage() {
 
       {/* Llamado a la acción */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-brand-blue to-sky-700 rounded-3xl p-8 sm:p-12 text-white text-center shadow-xl">
+        <div className="bg-brand-blue-dark border border-brand-blue/30 rounded-3xl p-8 sm:p-12 text-white text-center">
           <h2 className="text-2xl sm:text-4xl font-bold">{ctaTitle}</h2>
           <p className="text-white/80 text-sm sm:text-base max-w-xl mx-auto mt-3">
             {ctaSubtitle}
@@ -197,13 +194,13 @@ export default function NosotrosPage() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/actividades"
-              className="px-6 py-3 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-white font-bold text-xs sm:text-sm shadow-highlight transition-all"
+              className="px-6 py-3 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-white font-bold text-xs sm:text-sm transition-colors"
             >
               Consultar Actividades
             </Link>
             <Link
               href="/contacto"
-              className="px-6 py-3 rounded-full bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all"
+              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-colors"
             >
               Cómo Llegar al Templo
             </Link>

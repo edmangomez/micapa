@@ -51,11 +51,6 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Lado izquierdo: Información y Dirección oficial */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue-light text-brand-blue-dark text-xs font-semibold uppercase tracking-wider">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>Sede de la Iglesia</span>
-            </div>
-
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-dark">
               Visítanos y Comunícate
             </h2>
@@ -65,41 +60,41 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
             </p>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-brand-cream border border-brand-border/60">
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-brand-cream taste-enter">
                 <div className="w-10 h-10 rounded-xl bg-brand-blue-light text-brand-blue flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-brand-dark">Dirección Oficial en Comayagua</h4>
-                  <p className="text-xs sm:text-sm text-brand-muted mt-0.5 leading-relaxed">
+                  <h4 className="text-base font-bold text-brand-dark">Dirección Oficial en Comayagua</h4>
+                  <p className="text-sm text-brand-muted mt-0.5 leading-relaxed">
                     {settings.church_address ||
                       'F957+3XR, Calle 2 NO, Bo. El INVA, Comayagua, Honduras'}
                   </p>
-                  <p className="text-[11px] font-mono text-brand-blue font-semibold mt-1">
+                  <p className="text-sm text-brand-blue-dark font-semibold mt-1">
                     Plus Code Google Maps: F957+3XR
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-brand-cream border border-brand-border/60">
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-brand-cream taste-enter">
                 <div className="w-10 h-10 rounded-xl bg-brand-blue-light text-brand-blue flex items-center justify-center flex-shrink-0">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-brand-dark">Teléfono de Oficina</h4>
-                  <p className="text-xs sm:text-sm text-brand-muted mt-0.5">
+                  <h4 className="text-base font-bold text-brand-dark">Teléfono de Oficina</h4>
+                  <p className="text-sm text-brand-muted mt-0.5">
                     {settings.church_phone || '+504 2772-0872'}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-brand-cream border border-brand-border/60">
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-brand-cream taste-enter">
                 <div className="w-10 h-10 rounded-xl bg-brand-blue-light text-brand-blue flex items-center justify-center flex-shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-brand-dark">Correo Electrónico</h4>
-                  <p className="text-xs sm:text-sm text-brand-muted mt-0.5">
+                  <h4 className="text-base font-bold text-brand-dark">Correo Electrónico</h4>
+                  <p className="text-sm text-brand-muted mt-0.5">
                     {settings.church_email || 'micapacomayagua@gmail.com'}
                   </p>
                 </div>
@@ -110,9 +105,9 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
           </div>
 
           {/* Lado derecho: Formulario de Contacto / Peticiones de Oración */}
-          <div className="lg:col-span-7 bg-brand-cream rounded-3xl p-6 sm:p-10 border border-brand-border/60 shadow-sm">
+          <div className="lg:col-span-7 bg-brand-cream rounded-3xl p-6 sm:p-10 taste-enter">
             <h3 className="text-2xl font-bold text-brand-dark mb-2">Envíanos un Mensaje</h3>
-            <p className="text-xs sm:text-sm text-brand-muted mb-6">
+            <p className="text-sm sm:text-base text-brand-muted mb-6">
               ¿Deseas solicitar oración, conocer más sobre los grupos de discipulado o ponerte en contacto con el pastor?
             </p>
 
@@ -198,7 +193,7 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full py-3.5 rounded-full bg-brand-blue hover:bg-brand-blue-hover disabled:opacity-60 text-white font-bold text-sm transition-all shadow-soft flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-full bg-brand-blue hover:bg-brand-blue-hover disabled:opacity-60 text-white font-bold text-sm transition-colors flex items-center justify-center gap-2"
                 >
                   {sending ? (
                     <>
@@ -230,8 +225,8 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
           const wazeUrl = `https://www.waze.com/ul?ll=${lat},${lng}&navigate=yes`;
 
           return (
-            <div className="mt-16 space-y-4">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-3xl bg-brand-cream border border-brand-border/60">
+            <div className="mt-16 space-y-4 taste-enter">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-3xl bg-brand-cream">
                 <div className="flex items-start gap-3.5">
                   <div className="w-11 h-11 rounded-2xl bg-brand-blue-light text-brand-blue flex items-center justify-center flex-shrink-0 mt-0.5">
                     <MapPin className="w-5 h-5 text-brand-blue" />
@@ -239,14 +234,14 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
                   <div>
                     <h3 className="text-base font-bold text-brand-dark flex items-center gap-2">
                       <span>El Camino de la palabra</span>
-                      <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                      <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
                         Ficha en Google Maps
                       </span>
                     </h3>
-                    <p className="text-xs text-brand-muted leading-relaxed mt-0.5">
+                    <p className="text-sm text-brand-muted leading-relaxed mt-0.5">
                       {exactAddress}
                     </p>
-                    <p className="text-[11px] font-mono text-brand-blue font-bold mt-1">
+                    <p className="text-sm text-brand-blue-dark font-semibold mt-1">
                       Plus Code: F957+3XR • Comayagua, Honduras
                     </p>
                   </div>
@@ -257,25 +252,25 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
                     href={googleMapsPlaceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white text-xs font-bold shadow-soft transition-all transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white text-sm font-bold transition-colors"
                   >
                     <span>Abrir en Google Maps</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-4 h-4" />
                   </a>
 
                   <a
                     href={wazeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold shadow-soft transition-all transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold transition-colors"
                   >
                     <span>Ruta en Waze</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>
               </div>
 
-              <div className="rounded-3xl overflow-hidden border border-brand-border/60 shadow-sm aspect-[21/9] max-h-96 w-full relative">
+              <div className="rounded-3xl overflow-hidden aspect-[21/9] max-h-96 w-full relative">
                 <iframe
                   title={`Ubicación de El Camino de la palabra - ${exactAddress}`}
                   src={mapEmbedUrl}

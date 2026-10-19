@@ -33,10 +33,10 @@ export default async function DetalleEventoPage({
         <span>Volver al calendario de eventos</span>
       </Link>
 
-      <article className="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border/60 shadow-card space-y-8">
+      <article className="bg-white rounded-3xl p-8 sm:p-12 border border-brand-border/80 space-y-8">
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3.5 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-bold uppercase tracking-wider">
+            <span className="px-3 py-1 rounded-full bg-brand-gold-light text-brand-gold-hover text-xs font-semibold">
               {event.status === 'published' ? 'Evento Confirmado' : event.status}
             </span>
             <span className="text-xs text-brand-muted">MICAPA Comayagua</span>
@@ -54,7 +54,7 @@ export default async function DetalleEventoPage({
               <Calendar className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <span className="text-[11px] text-brand-muted uppercase font-bold block tracking-wider">Fecha</span>
+              <span className="text-xs text-brand-muted font-medium block">Fecha</span>
               <span className="text-sm font-bold text-brand-dark leading-snug break-words block">
                 {eventDate.toLocaleDateString('es-HN', {
                   day: 'numeric',
@@ -70,7 +70,7 @@ export default async function DetalleEventoPage({
               <Clock className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <span className="text-[11px] text-brand-muted uppercase font-bold block tracking-wider">Horario</span>
+              <span className="text-xs text-brand-muted font-medium block">Horario</span>
               <span className="text-sm font-bold text-brand-dark leading-snug break-words block">{event.time}</span>
             </div>
           </div>
@@ -80,14 +80,14 @@ export default async function DetalleEventoPage({
               <MapPin className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <span className="text-[11px] text-brand-muted uppercase font-bold block tracking-wider">Lugar</span>
+              <span className="text-xs text-brand-muted font-medium block">Lugar</span>
               <span className="text-sm font-bold text-brand-dark leading-snug break-words block">{event.location}</span>
             </div>
           </div>
         </div>
 
         {event.image_url && (
-          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-sm">
+          <div className="relative aspect-video rounded-2xl overflow-hidden border border-brand-border/60">
             <Image
               src={event.image_url}
               alt={event.title}
@@ -102,8 +102,8 @@ export default async function DetalleEventoPage({
         </div>
 
         {/* Compartir evento */}
-        <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <span className="text-xs font-bold text-brand-muted uppercase tracking-wider flex items-center gap-1.5">
+        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <span className="text-xs font-semibold text-brand-muted flex items-center gap-1.5">
             <Share2 className="w-4 h-4 text-brand-gold" />
             <span>Compartir este evento:</span>
           </span>
@@ -111,12 +111,12 @@ export default async function DetalleEventoPage({
           <ShareButtons title={event.title} summary={event.description} />
         </div>
 
-        <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <a
             href={`https://wa.me/50427720872?text=Hola%20MICAPA,%20deseo%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20evento:%20${encodeURIComponent(event.title)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-soft transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Consultar por WhatsApp</span>
@@ -124,7 +124,7 @@ export default async function DetalleEventoPage({
 
           <Link
             href="/contacto"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-sm shadow-soft transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-blue hover:bg-brand-blue-hover text-white font-bold text-sm transition-colors"
           >
             <span>Cómo Llegar a la Iglesia</span>
           </Link>

@@ -15,10 +15,7 @@ export default function ContactoPage() {
   return (
     <div className="py-8">
       <div className="text-center max-w-2xl mx-auto mb-8 px-4">
-        <span className="px-3.5 py-1 rounded-full bg-brand-blue-light text-brand-blue-dark text-xs font-bold uppercase tracking-wider">
-          Estamos para Servirte
-        </span>
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark mt-2">
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
           Contacto y Peticiones de Oración
         </h1>
         <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
