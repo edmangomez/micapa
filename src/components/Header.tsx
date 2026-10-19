@@ -124,20 +124,17 @@ export default function Header() {
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={togglePlay}
-                className="relative inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-hover text-brand-dark font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-full transition-colors active:scale-95"
+                className="relative inline-flex items-center gap-2.5 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm pl-2 pr-3.5 py-1.5 rounded-full transition-transform duration-200 active:scale-95"
               >
-                <span className="w-2 h-2 rounded-full bg-brand-dark shrink-0"></span>
-                {isPlaying ? (
-                  <>
-                    <Pause className="w-4 h-4 fill-current" />
-                    <span>Pausar Radio</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-4 h-4 fill-current ml-0.5" />
-                    <span>Escuchar Radio</span>
-                  </>
-                )}
+                <span className="w-7 h-7 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center shrink-0">
+                  {isPlaying ? (
+                    <Pause className="w-3.5 h-3.5 fill-current" />
+                  ) : (
+                    <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                  )}
+                </span>
+                <span>{isPlaying ? 'Pausar Radio' : 'Radio en Vivo'}</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" title="En Vivo 24/7"></span>
               </button>
             </div>
 
@@ -145,10 +142,12 @@ export default function Header() {
             <div className="flex items-center gap-2 lg:hidden">
               <button
                 onClick={togglePlay}
-                className="p-2 rounded-full bg-brand-gold text-brand-dark font-bold"
+                className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center active:scale-95 transition-transform duration-200"
                 aria-label={isPlaying ? "Pausar Radio" : "Reproducir Radio en vivo"}
               >
-                {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
+                <span className="w-7 h-7 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center">
+                  {isPlaying ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
+                </span>
               </button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

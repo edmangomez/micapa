@@ -75,7 +75,7 @@ export default function HeroSection({
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 pt-1 sm:pt-2">
               <button
                 onClick={togglePlay}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 rounded-full bg-brand-gold hover:bg-brand-gold-hover text-brand-dark font-extrabold text-sm sm:text-base transition-transform active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 sm:px-8 sm:py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm sm:text-base transition-transform active:scale-95"
               >
                 {isPlaying ? (
                   <>
