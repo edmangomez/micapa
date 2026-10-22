@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createContactMessage } from '@/lib/data';
 import db from '@/lib/db';
 import { getCurrentAdmin } from '@/lib/auth';
+import { sendContactEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -22,6 +23,7 @@ export async function POST(request: Request) {
       );
     }
 
+    // 1. Guardar siempre en la base de datos local
     const id = createContactMessage({
       name,
       email,
@@ -30,10 +32,31 @@ export async function POST(request: Request) {
       message,
     });
 
+    // 2. Disparar envío de correo (notificación + acuse de recibo)
+    let emailStatus: {
+      adminSent: boolean;
+      userSent: boolean;
+      error?: string;
+      reason?: string;
+    } = { adminSent: false, userSent: false, reason: 'unprocessed' };
+    try {
+      emailStatus = await sendContactEmail({
+        id,
+        name: name.trim(),
+        email: email?.trim(),
+        phone: phone?.trim(),
+        type: type?.trim(),
+        message: message.trim(),
+      });
+    } catch (mailError) {
+      console.error('Error no crítico al despachar correo electrónico:', mailError);
+    }
+
     return NextResponse.json(
       {
         success: true,
         messageId: id,
+        emailSent: emailStatus.adminSent,
         message: 'Tu mensaje ha sido recibido con éxito. Estaremos orando por ti.',
       },
       { status: 201 }

@@ -2,13 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { SiteSettings } from '@/lib/types';
-import { Settings, Save, CheckCircle2, Loader2, Radio, Globe, Phone, Mail, MapPin } from 'lucide-react';
+import { Settings, Save, CheckCircle2, Loader2, Radio, Globe, Phone, Mail, MapPin, Send, Key, AlertCircle, Info } from 'lucide-react';
 
 export default function AdminConfiguracionPage() {
   const [settings, setSettings] = useState<SiteSettings>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [testingEmail, setTestingEmail] = useState(false);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
     async function loadSettings() {
@@ -53,6 +55,37 @@ export default function AdminConfiguracionPage() {
       console.error(err);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleTestEmail = async () => {
+    setTestingEmail(true);
+    setTestResult(null);
+    try {
+      const res = await fetch('/api/contact/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipient: settings.smtp_to || settings.church_email }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setTestResult({
+          success: false,
+          message: data.error || 'Ocurrió un error al probar el envío de correo.',
+        });
+      } else {
+        setTestResult({
+          success: true,
+          message: data.message || '¡Correo de prueba enviado con éxito!',
+        });
+      }
+    } catch (err: any) {
+      setTestResult({
+        success: false,
+        message: err.message || 'Error de conexión al probar el correo.',
+      });
+    } finally {
+      setTestingEmail(false);
     }
   };
 
@@ -190,6 +223,145 @@ export default function AdminConfiguracionPage() {
                 type="email"
                 value={settings.church_email || ''}
                 onChange={(e) => handleChange('church_email', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Sección: Servicio de Envío de Correo (SMTP / Gmail) */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-100">
+            <div>
+              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <Mail className="w-4 h-4 text-brand-blue" />
+                <span>Servicio de Envío de Correos Electrónicos (SMTP)</span>
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Permite que el formulario de contacto web despache los correos de oración y peticiones directamente a la bandeja pastoral.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleTestEmail}
+              disabled={testingEmail}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-brand-blue/30 bg-brand-blue/5 hover:bg-brand-blue/10 text-brand-blue text-xs font-bold transition-all disabled:opacity-50"
+            >
+              {testingEmail ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+              <span>Probar Envío de Correo</span>
+            </button>
+          </div>
+
+          {testResult && (
+            <div
+              className={`p-4 rounded-2xl text-xs sm:text-sm flex items-start gap-3 animate-fadeIn ${
+                testResult.success
+                  ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+                  : 'bg-rose-50 border border-rose-200 text-rose-800'
+              }`}
+            >
+              {testResult.success ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+              )}
+              <div className="leading-relaxed">{testResult.message}</div>
+            </div>
+          )}
+
+          {/* Guía rápida para Gmail / Google */}
+          <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 text-amber-900 text-xs space-y-2">
+            <div className="flex items-center gap-2 font-bold text-amber-950">
+              <Info className="w-4 h-4 text-amber-600 flex-shrink-0" />
+              <span>¿Cómo configurar el envío con Gmail (ej: micapacomayagua@gmail.com)?</span>
+            </div>
+            <ol className="list-decimal list-inside space-y-1 text-amber-900/90 pl-1 leading-relaxed">
+              <li>Inicia sesión en tu cuenta de Google (<a href="https://myaccount.google.com/security" target="_blank" rel="noopener noreferrer" className="underline font-semibold text-amber-950">Seguridad de Google</a>).</li>
+              <li>Asegúrate de tener activa la <strong>Verificación en 2 pasos</strong>.</li>
+              <li>En la barra de búsqueda de tu cuenta de Google escribe <strong>"Contraseñas de aplicaciones"</strong> y crea una para "MICAPA Web".</li>
+              <li>Copia el código generado de 16 letras (sin espacios) y pégalo abajo en <strong>Contraseña de Aplicación</strong>.</li>
+            </ol>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Servidor SMTP (Host)
+              </label>
+              <input
+                type="text"
+                placeholder="smtp.gmail.com"
+                value={settings.smtp_host || ''}
+                onChange={(e) => handleChange('smtp_host', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+              <span className="text-[11px] text-slate-400 mt-0.5 block">Por defecto: smtp.gmail.com</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Puerto SMTP
+              </label>
+              <input
+                type="text"
+                placeholder="465 (SSL) o 587 (TLS)"
+                value={settings.smtp_port || ''}
+                onChange={(e) => handleChange('smtp_port', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+              <span className="text-[11px] text-slate-400 mt-0.5 block">Recomendado para Gmail: 465</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Correo Remitente (Usuario SMTP)
+              </label>
+              <input
+                type="email"
+                placeholder="micapacomayagua@gmail.com"
+                value={settings.smtp_user || ''}
+                onChange={(e) => handleChange('smtp_user', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Contraseña de Aplicación Google (16 caracteres)
+              </label>
+              <input
+                type="password"
+                placeholder="••••••••••••••••"
+                value={settings.smtp_pass || ''}
+                onChange={(e) => handleChange('smtp_pass', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Correo Destino de Notificaciones
+              </label>
+              <input
+                type="email"
+                placeholder="micapacomayagua@gmail.com"
+                value={settings.smtp_to || ''}
+                onChange={(e) => handleChange('smtp_to', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+              <span className="text-[11px] text-slate-400 mt-0.5 block">Donde llegarán las peticiones enviadas</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Nombre del Remitente (Opcional)
+              </label>
+              <input
+                type="text"
+                placeholder="MICAPA - El Camino de la Palabra"
+                value={settings.smtp_from || ''}
+                onChange={(e) => handleChange('smtp_from', e.target.value)}
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
             </div>

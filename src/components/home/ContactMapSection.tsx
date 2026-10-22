@@ -8,6 +8,8 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [emailDispatched, setEmailDispatched] = useState(false);
+  const [hasUserEmail, setHasUserEmail] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,6 +24,7 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
     setErrorMessage('');
 
     try {
+      const userEnteredEmail = Boolean(formData.email.trim());
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,11 +36,13 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
         throw new Error(data.error || 'Ocurrió un error al enviar el mensaje');
       }
 
+      setEmailDispatched(Boolean(data.emailSent));
+      setHasUserEmail(userEnteredEmail);
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', type: 'Petición de Oración', message: '' });
       setTimeout(() => {
         setSubmitted(false);
-      }, 7000);
+      }, 8000);
     } catch (err: any) {
       setErrorMessage(err.message || 'No se pudo enviar el mensaje. Inténtalo de nuevo.');
     } finally {
@@ -115,9 +120,15 @@ export default function ContactMapSection({ settings }: { settings: SiteSettings
               <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center text-emerald-800 space-y-2 animate-fadeIn">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
                 <h4 className="text-base font-bold">¡Mensaje Enviado con Éxito!</h4>
-                <p className="text-xs text-emerald-700">
-                  Gracias por comunicarte con MICAPA. Hemos recibido tu mensaje y estaremos en oración por tu vida.
+                <p className="text-xs text-emerald-700 leading-relaxed max-w-md mx-auto">
+                  Gracias por comunicarte con MICAPA. Hemos registrado tu mensaje y estaremos en oración por tu vida y familia.
                 </p>
+                {emailDispatched && (
+                  <p className="text-[11px] font-semibold text-emerald-800 bg-emerald-100/70 inline-block px-3 py-1 rounded-full mt-2">
+                    Notificación por correo enviada a la administración pastoral
+                    {hasUserEmail ? ' y copia de confirmación a tu correo.' : '.'}
+                  </p>
+                )}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">

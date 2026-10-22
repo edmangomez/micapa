@@ -105,6 +105,14 @@ export interface SiteSettings {
   about_values_json?: string;
   about_cta_title?: string;
   about_cta_subtitle?: string;
+  // Configuración de Correo Electrónico (SMTP)
+  smtp_host?: string;
+  smtp_port?: string;
+  smtp_secure?: string;
+  smtp_user?: string;
+  smtp_pass?: string;
+  smtp_from?: string;
+  smtp_to?: string;
 }
 
 export interface AboutValue {
