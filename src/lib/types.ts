@@ -105,6 +105,12 @@ export interface SiteSettings {
   about_values_json?: string;
   about_cta_title?: string;
   about_cta_subtitle?: string;
+  // Imágenes de Portada para Secciones
+  mensajes_hero_image?: string;
+  actividades_hero_image?: string;
+  eventos_hero_image?: string;
+  contacto_hero_image?: string;
+  radio_hero_image?: string;
   // Configuración de Correo Electrónico (SMTP)
   smtp_host?: string;
   smtp_port?: string;

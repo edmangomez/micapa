@@ -4,23 +4,23 @@ import React from 'react';
 import Image from 'next/image';
 import { useAudioPlayer } from '@/components/AudioPlayerContext';
 import { Play, Pause, Radio, ExternalLink, Users, Volume2, VolumeX, Music, MessageSquare } from 'lucide-react';
+import PageHeaderBanner from '@/components/common/PageHeaderBanner';
 
 export default function RadioPage() {
   const { isPlaying, isLoading, volume, isMuted, nowPlaying, togglePlay, setVolume, toggleMute } = useAudioPlayer();
 
   return (
-    <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      {/* Header Radio */}
-      <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
-          Radio del Camino en Vivo
-        </h1>
-        <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
-          La Radio del Camino: Conectándote Con El Cielo. Música cristiana contemporánea, prédicas, oraciones y comunidad las 24 horas.
-        </p>
-      </div>
+    <div className="space-y-12">
+      <PageHeaderBanner
+        badge="Emisora Cristiana 24/7"
+        title="Radio del Camino en Vivo"
+        subtitle="Conectándote con el cielo: música de alabanza y adoración, mensajes bíblicos y edificación espiritual las 24 horas."
+        bgImage="/images/hero-bg.jpg"
+        alt="Radio del Camino MICAPA"
+      />
 
-      {/* Reproductor Visual Ampliado */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-12">
+        {/* Reproductor Visual Ampliado */}
       <div className="max-w-4xl mx-auto bg-brand-blue-dark border border-brand-blue/30 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Carátula */}
@@ -139,5 +139,6 @@ export default function RadioPage() {
         </a>
       </div>
     </div>
+  </div>
   );
 }

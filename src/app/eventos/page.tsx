@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { getAllEvents } from '@/lib/data';
+import { getAllEvents, getSettings } from '@/lib/data';
 import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
+import PageHeaderBanner from '@/components/common/PageHeaderBanner';
 
 export const metadata = {
   title: 'Próximos Eventos | MICAPA',
@@ -12,19 +13,23 @@ export const dynamic = 'force-dynamic';
 
 export default function EventosPage() {
   const events = getAllEvents();
+  const settings = getSettings();
+
+  const bgImage =
+    settings.eventos_hero_image ||
+    'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80';
 
   return (
-    <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
-          Eventos y Convocatorias
-        </h1>
-        <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
-          Fechas especiales para congregarnos, buscar el rostro de Dios y celebrar victorias espirituales en comunidad.
-        </p>
-      </div>
+    <div className="space-y-12">
+      <PageHeaderBanner
+        title="Eventos y Convocatorias"
+        subtitle="Fechas especiales para congregarnos, buscar el rostro de Dios y celebrar victorias espirituales en comunidad."
+        bgImage={bgImage}
+        alt="Eventos y Convocatorias MICAPA"
+      />
 
-      {events.length === 0 ? (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-12">
+        {events.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-brand-border/60 max-w-xl mx-auto p-8 space-y-3">
           <Calendar className="w-10 h-10 text-brand-gold mx-auto" />
           <h2 className="text-xl font-bold text-brand-dark">Próximamente Nuevas Fechas</h2>
@@ -98,5 +103,6 @@ export default function EventosPage() {
         </div>
       )}
     </div>
+  </div>
   );
 }

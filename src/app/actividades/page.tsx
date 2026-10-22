@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { getWeeklyActivities } from '@/lib/data';
+import { getWeeklyActivities, getSettings } from '@/lib/data';
 import { Calendar, Clock, MapPin, Users, Heart, ArrowRight } from 'lucide-react';
+import PageHeaderBanner from '@/components/common/PageHeaderBanner';
 
 export const metadata = {
   title: 'Actividades Semanales | MICAPA',
@@ -12,19 +13,23 @@ export const dynamic = 'force-dynamic';
 
 export default function ActividadesPage() {
   const activities = getWeeklyActivities();
+  const settings = getSettings();
+
+  const bgImage =
+    settings.actividades_hero_image ||
+    '/images/culto-general.jpg';
 
   return (
-    <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-brand-dark">
-          Nuestras Actividades Semanales
-        </h1>
-        <p className="text-brand-muted text-sm sm:text-base mt-3 leading-relaxed">
-          Un espacio y una reunión diseñada para cada miembro de la familia. Te esperamos con los brazos abiertos en Comayagua.
-        </p>
-      </div>
+    <div className="space-y-12">
+      <PageHeaderBanner
+        title="Nuestras Actividades Semanales"
+        subtitle="Un espacio y una reunión diseñada para cada miembro de la familia. Te esperamos con los brazos abiertos en Comayagua."
+        bgImage={bgImage}
+        alt="Actividades Semanales MICAPA"
+      />
 
-      {activities.length > 0 ? (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-12">
+        {activities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {activities.map((activity) => (
             <div
@@ -98,5 +103,6 @@ export default function ActividadesPage() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

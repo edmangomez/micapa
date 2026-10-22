@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { getSettings } from '@/lib/data';
 import { AboutValue } from '@/lib/types';
+import PageHeaderBanner from '@/components/common/PageHeaderBanner';
 
 export const metadata = {
   title: 'Quiénes Somos | MICAPA - Ministerio el Camino de la Palabra',
@@ -106,26 +107,14 @@ export default function NosotrosPage() {
     'Acompáñanos en nuestro Culto General o en cualquiera de nuestras reuniones de la semana en Comayagua.';
 
   return (
-    <div className="space-y-16 py-12">
-      {/* Hero Nosotros */}
-      <section className="relative py-20 bg-brand-dark text-white overflow-hidden rounded-b-3xl">
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src={heroImage}
-            alt="Nosotros MICAPA"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
-            {heroTitle}
-          </h1>
-          <p className="text-gray-300 text-base sm:text-lg max-w-xl mx-auto mt-4 leading-relaxed">
-            {heroSubtitle}
-          </p>
-        </div>
-      </section>
+    <div className="space-y-16 pb-16">
+      <PageHeaderBanner
+        badge={heroBadge}
+        title={heroTitle}
+        subtitle={heroSubtitle}
+        bgImage={heroImage}
+        alt="Quiénes Somos - MICAPA"
+      />
 
       {/* Misión y Visión */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { SiteSettings } from '@/lib/types';
-import { Settings, Save, CheckCircle2, Loader2, Radio, Globe, Phone, Mail, MapPin, Send, Key, AlertCircle, Info } from 'lucide-react';
+import { Settings, Save, CheckCircle2, Loader2, Radio, Globe, Phone, Mail, MapPin, Send, Key, AlertCircle, Info, Image as ImageIcon } from 'lucide-react';
 
 export default function AdminConfiguracionPage() {
   const [settings, setSettings] = useState<SiteSettings>({});
@@ -160,6 +160,73 @@ export default function AdminConfiguracionPage() {
               onChange={(e) => handleChange('hero_subtitle', e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
             />
+          </div>
+        </div>
+
+        {/* Sección: Banners y Portadas de Secciones */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-4">
+          <div className="pb-3 border-b border-gray-100">
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <ImageIcon className="w-4 h-4 text-brand-gold" />
+              <span>Imágenes de Fondo en Encabezados (Banners)</span>
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Personaliza las fotografías de fondo con estilo congregacional que aparecen en cada sección pública.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Fondo Sección Reflexiones Bíblicas (/mensajes)
+              </label>
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/... o /images/..."
+                value={settings.mensajes_hero_image || ''}
+                onChange={(e) => handleChange('mensajes_hero_image', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Fondo Sección Actividades Semanales (/actividades)
+              </label>
+              <input
+                type="text"
+                placeholder="/images/culto-general.jpg o URL"
+                value={settings.actividades_hero_image || ''}
+                onChange={(e) => handleChange('actividades_hero_image', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Fondo Sección Próximos Eventos (/eventos)
+              </label>
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/... o /images/..."
+                value={settings.eventos_hero_image || ''}
+                onChange={(e) => handleChange('eventos_hero_image', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Fondo Sección Contacto y Oración (/contacto)
+              </label>
+              <input
+                type="url"
+                placeholder="https://images.unsplash.com/... o /images/..."
+                value={settings.contacto_hero_image || ''}
+                onChange={(e) => handleChange('contacto_hero_image', e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+            </div>
           </div>
         </div>
 
