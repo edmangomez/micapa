@@ -36,16 +36,16 @@ export default function HeroSection({
 
   return (
     <section className="relative overflow-hidden bg-brand-dark text-white pt-8 pb-12 sm:pt-14 sm:pb-20 lg:pt-20 lg:pb-32">
-      {/* Fondo con textura sutil e iluminación cálida ambiental */}
+      {/* Fondo congregacional con iluminación cálida y cobertura para legibilidad */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-brand-dark/85 z-10" />
+        <div className="absolute inset-0 bg-brand-dark/70 z-10" />
         <Image
           src="/images/hero-bg.jpg"
-          alt="Alabanza y Adoración MICAPA"
+          alt="Alabanza y Adoración Congregacional MICAPA"
           fill
           unoptimized
           priority
-          className="object-cover object-center opacity-40 mix-blend-luminosity"
+          className="object-cover object-center opacity-85"
         />
       </div>
 
